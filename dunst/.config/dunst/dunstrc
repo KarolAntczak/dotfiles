@@ -1,0 +1,25 @@
+[global]
+frame_color = "#8aadf4"
+separator_color= frame
+highlight = "#8aadf4"
+
+corner_radius = 12
+frame_width = 2
+markup = yes
+font = JetBrainsMono Nerd Font 12
+mouse_left_click = do_action 
+enable_recursive_icon_lookup = yes
+scale = 2
+
+[urgency_low]
+background = "#24273a"
+foreground = "#cad3f5"
+
+[urgency_normal]
+background = "#24273a"
+foreground = "#cad3f5"
+
+[urgency_critical]
+background = "#24273a"
+foreground = "#cad3f5"
+frame_color = "#f5a97f"

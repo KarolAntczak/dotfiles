@@ -1,0 +1,20 @@
+# cache / runtime
+*.log
+*.cache
+cache/
+Cache/
+
+# system-specific
+pulse/
+google-chrome/
+Signal/
+libreoffice/
+
+# IDE / heavy stuff
+JetBrains/
+Kitware/
+
+# secrets
+secrets/
+.env
+

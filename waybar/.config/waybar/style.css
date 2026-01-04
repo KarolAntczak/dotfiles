@@ -1,0 +1,133 @@
+@import "themes/macchiato.css";
+
+* {
+    border: none;
+    border-radius: 2px;
+    font-family: JetBrainsMono Nerd Font, monospace;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+*:hover {
+    background: @overlay0;
+}
+
+window#waybar {
+    background: alpha(@base, 0.5);
+    color: @text;
+}
+
+#workspaces button {
+    color: @text;
+    padding: 0px 10px 0px 10px;
+    margin: -5px 0px -5px 0px;
+    border-radius: 10px;
+}
+
+#workspaces button.active {
+    background: @surface0;
+}
+
+#workspaces button.focused {
+    background: @overlay2;
+}
+
+#workspaces button.urgent {
+    background: @red;
+}
+
+#workspaces button:hover {
+    background: @overlay0;
+}
+
+#custom-menu:hover {
+    background: @overlay0;
+}
+
+#custom-menu,
+#window,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#workspaces,
+#tray,
+#bluetooth,
+#backlight {
+    background: @surface0;
+    padding: 5px 10px;
+    margin: 3px 0px;
+    margin-top: 5px;
+    border: 1px solid @crust; 
+}
+
+#backlight {
+    border-radius: 10px 10px 10px 10px;
+    margin-right: 5px;
+}
+
+
+#workspaces {
+    background: #1e1e2e;
+    border-radius: 10px;
+    margin-left: 10px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#custom-menu {
+    border-radius: 10px 10px 10px 10px;
+    padding-right: 16px;
+    padding-left: 12px;
+    margin-right: 16px;
+    margin-left: 5px;
+    color: @red;
+}
+
+
+#cpu {
+    border-radius: 0px 10px 10px 0px;
+    margin-right: 10px;
+}
+
+#memory {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#window {
+    border-radius: 10px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+#clock {
+    border-radius: 10px;
+    margin-right: 5px;
+    border-right: 0px;
+}
+
+#network {
+    border-radius: 10px 0px 0px 10px;
+
+}
+
+#pulseaudio {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#pulseaudio.microphone {
+    border-radius: 0px 10px 10px 0px;
+    margin-right: 5px;
+}
+
+#battery {
+    border-radius: 10px 10px 10px 10px;
+    margin-right: 10px;
+}
+
+#bluetooth {
+    border-radius: 0px 10px 10px 0px;
+    margin-right: 5px;
+}
