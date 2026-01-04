@@ -14,8 +14,6 @@
         "tray",
         "memory",
         "cpu",
-        "network",
-	"bluetooth",
         "backlight",
         "pulseaudio",
         "pulseaudio#microphone",
@@ -34,6 +32,11 @@
         "format": "{icon}"
     },
 
+    "tray": {
+        "icon-size": 16,
+	"spacing": 8,
+	"show-passive-items": true
+    },
     "clock": {
         "format": "  {0:%d %b %Y}    {0:%H:%M:%S}",
         "interval": 1,
@@ -123,35 +126,11 @@
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
 
-    "network": {
+    "custom/menu": {
+        "format": "⏻",
         "tooltip": true,
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰈀 ",
-        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>",
-        "format-linked": "󰈀 {ifname} (No IP)",
-        "format-disconnected": "󰖪 ",
-        "tooltip-format-disconnected": "Disconnected",
-        "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
-        "interval": 2,
-	"on-click-right": "sh -c 'nmrs &'"
-    },
-
-"bluetooth": {
-	"format": " {status}",
-	"format-connected": " {device_alias}",
-	"format-connected-battery": " {device_alias} {device_battery_percentage}%",
-	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-	"on-click": "sh -c 'adw-bluetooth &'"
-},
-
-"custom/menu": {
-  "format": "⏻",
-  "tooltip": true,
-  "tooltip-format": "Power off",
-  "on-click": "bash -lc ~/.config/waybar/scripts/rofi-menu.sh"
-}
+        "tooltip-format": "Power off",
+        "on-click": "bash -lc ~/.config/waybar/scripts/rofi-menu.sh"
+    }
 
 }

@@ -68,6 +68,14 @@ window#waybar {
     margin-right: 5px;
 }
 
+#tray {
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
 
 #workspaces {
     background: #1e1e2e;
