@@ -3,13 +3,10 @@
 * {
     border: none;
     border-radius: 2px;
-    font-family: JetBrainsMono Nerd Font, monospace;
-    font-weight: bold;
+    font-family: "Inter Display", sans-serif;
+    font-feature-settings: "tnum";  
+    font-weight: 500;
     font-size: 14px;
-}
-
-*:hover {
-    background: @overlay0;
 }
 
 window#waybar {
@@ -75,7 +72,6 @@ window#waybar {
     padding-right: 10px;
     padding-left: 10px;
 }
-
 
 #workspaces {
     background: #1e1e2e;

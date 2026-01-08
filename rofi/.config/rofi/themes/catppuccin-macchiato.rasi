@@ -11,7 +11,7 @@
     grey:         #939ab766;
 
     width:        600;
-    font:         "JetBrainsMono Nerd Font 12";
+    font:         "Inter Display 12";
 }
 
 element-text,
