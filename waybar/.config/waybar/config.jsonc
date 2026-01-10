@@ -15,8 +15,9 @@
         "memory",
         "cpu",
         "backlight",
+	"backlight/slider",
         "pulseaudio",
-        "pulseaudio#microphone",
+	"pulseaudio/slider",
         "battery",
         "clock"
     ],
@@ -38,7 +39,7 @@
 	"show-passive-items": true
     },
     "clock": {
-        "format": "{0:%d %b %Y}  {0:%H:%M:%S}",
+        "format": "   {0:%d %b %Y}     {0:%H:%M:%S}",
         "interval": 1,
         "rotate": 0,
         "tooltip-format": "<span font='Inter Display'><tt>{calendar}</tt></span>",
@@ -66,9 +67,14 @@
         "format-icons": ["󰃞", "󰃟", "󰃠"],
         "on-scroll-up": "brightnessctl set 1%+",
         "on-scroll-down": "brightnessctl set 1%-",
+        "min-brightness": 10,   
         "min-length": 6
     },
-
+    "backlight/slider": {
+       "min": 10,
+       "max": 100,
+       "device": "intel_backlight"
+    },
     "battery": {
         "states": {
             "good": 95,
@@ -83,7 +89,7 @@
     },
     "pulseaudio": {
             "format": "{icon}  {volume}%",
-            "format-muted": "󰸈",
+            "format-muted": "",
             "format-icons": {
    	    "headphone": "",
 	    "hands-free": "",
@@ -99,14 +105,12 @@
 	"on-click-right": "pavucontrol",
 	"ignored-sinks": ["Easy Effects Sink"]
     },
-    
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "  Muted",
-        "scroll-step": 5
-    },
-
+    "pulseaudio/slider": {
+        "format": "{volume}%",
+        "format-muted": " MUTE",
+	"scoll-step": 1,
+        "tooltip": false
+    }, 
     "memory": {
         "states": {
             "c": 90, 
@@ -114,18 +118,18 @@
             "m": 30
         },
         "interval": 10,
-        "format": "󰾆  {used}GB",
-        "format-m": "󰾅  {used}GB",
-        "format-h": "󰓅  {used}GB",
-        "format-c": "  {used}GB",
-        "format-alt": "󰾆  {percentage}%",
+        "format": "   {used}GB",
+        "format-m": "   {used}GB",
+        "format-h": "   {used}GB",
+        "format-c": "   {used}GB",
+        "format-alt": "   {percentage}%",
         "tooltip": true,
-        "tooltip-format": "󰾆  {percentage}%\n  {used:0.1f}GB/{total:0.1f}GB"
+        "tooltip-format": "   {percentage}%\n   {used:0.1f}GB/{total:0.1f}GB"
     },
 
     "cpu": {
         "interval": 10,
-        "format": "󰍛  {usage}%",
+        "format": "   {usage}%",
         "format-alt": "{icon0}{icon1}{icon2}{icon3}",
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
