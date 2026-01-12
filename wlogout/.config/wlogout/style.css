@@ -1,6 +1,7 @@
 * {
 	background-image: none;
 	box-shadow: none;
+	font-size: 36px;
 }
 
 window {
@@ -8,8 +9,9 @@ window {
 }
 
 button {
-	border-radius: 0;
+	border-radius: 16px;
 	border-color: #8aadf4;
+	margin: 16px;
 	text-decoration-color: #cad3f5;
 	color: #cad3f5;
 	background-color: #1e2030;
@@ -17,11 +19,12 @@ button {
 	border-width: 1px;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: 25%;
+	background-size: 15%;
+
 }
 
 button:focus, button:active, button:hover {
-	/* 20% Overlay 2, 80% mantle */
+	/* 20% Overlay s, 80% mantle */
 	background-color: rgb(53, 57, 75);
 	outline-style: none;
 }
