@@ -2,15 +2,16 @@
 
 * {
     border: none;
-    border-radius: 2px;
     font-family: "Inter Display", sans-serif;
     font-feature-settings: "tnum";  
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 window#waybar {
-    background: alpha(@base, 0.5);
+    background: none;
     color: @text;
 }
 
@@ -18,27 +19,27 @@ window#waybar {
     color: @text;
     padding: 0px 10px 0px 10px;
     margin: -5px 0px -5px 0px;
-    border-radius: 10px;
+    border-radius: 16px;
 }
 
 #workspaces button.active {
-    background: @surface0;
+    background: alpha(@surface0, 0.8);
 }
 
 #workspaces button.focused {
-    background: @overlay2;
+    background: alpha(@overlay2, 0.4);
 }
 
 #workspaces button.urgent {
-    background: @red;
+    background: alpha(@red, 0.4);
 }
 
 #workspaces button:hover {
-    background: @overlay0;
+    background: alpha(@overlay0, 0.4);
 }
 
 #custom-menu:hover {
-    background: @overlay0;
+    background: alpha(@overlay0, 0.4);
 }
 
 #custom-menu,
@@ -47,36 +48,33 @@ window#waybar {
 #battery,
 #pulseaudio,
 #pulseaudio-slider,
-#network,
 #cpu,
 #memory,
 #workspaces,
 #tray,
-#bluetooth,
 #backlight,
 #backlight-slider {
-    background: @surface0;
+    background: alpha(@surface0, 0.4);
     padding: 5px 10px;
-    margin: 3px 0px;
-    margin-top: 5px;
-    border: 1px solid @crust; 
+    margin: 5px 0px 5px 0px;
+    border-radius: 16px;
 }
 
 #backlight {
-    border-radius: 10px 0px 0px 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     min-width: 64px;
 }
 
 #backlight-slider {
   min-width: 50px;
-  border-radius: 0px 10px 10px 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   margin-right: 10px;
-  color: green;
+  margin-left: 2px;
 }
 
-
 #tray {
-    border-radius: 10px;
     margin-left: 10px;
     margin-right: 10px;
     padding-right: 10px;
@@ -84,58 +82,55 @@ window#waybar {
 }
 
 #workspaces {
-    background: #1e1e2e;
-    border-radius: 10px;
+    background: alpha(@surface0, 0.4);
     margin-left: 10px;
     padding-right: 0px;
     padding-left: 0px;
 }
 
 #custom-menu {
-    border-radius: 10px 10px 10px 10px;
-    padding-right: 16px;
-    padding-left: 12px;
     margin-right: 16px;
     margin-left: 5px;
     color: @red;
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: 16px;
 }
 
-
 #cpu {
-    border-radius: 0px 10px 10px 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     margin-right: 10px;
+    margin-left: 2px;
 }
 
 #memory {
-    border-radius: 10px 0px 0px 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 #window {
-    border-radius: 10px;
     margin-left: 60px;
     margin-right: 60px;
 }
 
 #clock {
-    border-radius: 10px;
     margin-right: 5px;
     border-right: 0px;
 }
 
-#network {
-    border-radius: 10px 0px 0px 10px;
-
-}
-
 #pulseaudio {
-    border-radius: 10px 0px 0px 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     min-width: 64px;
 }
 
 #pulseaudio-slider {
   min-width: 50px;
-  border-radius: 0px 10px 10px 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   margin-right: 10px;
+  margin-left: 2px;
   color: green;
 }
 
@@ -165,11 +160,6 @@ window#waybar {
 }
 
 #battery {
-    border-radius: 10px 10px 10px 10px;
     margin-right: 10px;
 }
 
-#bluetooth {
-    border-radius: 0px 10px 10px 0px;
-    margin-right: 5px;
-}
