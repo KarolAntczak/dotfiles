@@ -1,0 +1,12 @@
+[user]
+	email = karol.antczak@tss.black
+	name = Karol Antczak
+[credential]
+	useHttpPath = true
+[alias]
+	jeb = !git commit --amend --no-edit && git push --force
+	jebut = !git add . && git commit --amend --no-edit && git push --force
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
