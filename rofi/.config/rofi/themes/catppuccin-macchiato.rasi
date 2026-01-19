@@ -1,14 +1,15 @@
 /* Catppuccin Macchiato */
 
 * {
-    bg-col:       #24273a66;
-    bg-col-light: #1e203066;
-    border-col:   #cad3f5ff;
+    bg-col:       #24273acc;
+    bg-col-light: #1e203000;
+    border-col:   #cad3f533;
     selected-col: #363a4fff;
     blue:         #8aadf4ff;
     fg-col:       #cad3f5ff;
     fg-col2:      #ed8796ff;
     grey:         #939ab766;
+    transparent:  #00000000;
 
     width:        600;
     font:         "Inter Display 12";
@@ -17,20 +18,20 @@
 element-text,
 element-icon,
 mode-switcher {
-    background-color: inherit;
+    background-color: @transparent;
     text-color:       inherit;
 }
 
 window {
     height: 360px;
-    border: 1px;
+    border: 2px;
     border-color: @border-col;
     background-color: @bg-col;
     border-radius: 12px;
 }
 
 mainbox {
-    background-color: @bg-col;
+    background-color: @transparent;
 }
 
 inputbar {
@@ -53,16 +54,16 @@ entry {
 }
 
 listview {
-    background-color: inherit;
+    background-color: @transparent;
     padding: 10px;
     spacing: 5px;
     scrollbar: false;
 }
 
 element {
-    background-color: inherit;
+    background-color: @transparent;
     text-color: @fg-col;
-    border-radius: 8px;
+    border-radius: 16px;
     padding: 6px;
 }
 
