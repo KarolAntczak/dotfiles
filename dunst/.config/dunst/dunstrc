@@ -4,7 +4,7 @@ separator_color= frame
 highlight = "#8aadf4"
 
 corner_radius = 12
-frame_width = 2
+frame_width = 1
 markup = yes
 font = Inter Display 10
 mouse_left_click = do_action 
