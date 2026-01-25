@@ -46,6 +46,7 @@ neovim
 network-manager-applet
 networkmanager
 nmrs
+noto-fonts-cjk
 noto-fonts-emoji
 nss-mdns
 nvidia-container-toolkit
@@ -80,7 +81,7 @@ ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols-mono
 unzip
 vulkan-tools
-waybar
+waybar-cava
 wine
 wireless-regdb
 wireplumber

@@ -53,6 +53,7 @@ window#waybar {
 #workspaces,
 #tray,
 #backlight,
+#cava,
 #backlight-slider {
     background: alpha(@surface0, 0.4);
     padding: 5px 10px;
@@ -91,10 +92,11 @@ window#waybar {
 #custom-menu {
     margin-right: 16px;
     margin-left: 5px;
-    color: @red;
-    padding-left: 13px;
-    padding-right: 13px;
-    font-size: 16px;
+    padding-left: 12px;
+    padding-right: 16px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 20px;
 }
 
 #cpu {
@@ -163,3 +165,7 @@ window#waybar {
     margin-right: 10px;
 }
 
+#cava {
+   font-size: 12px;
+   margin-right: 10px;
+}
