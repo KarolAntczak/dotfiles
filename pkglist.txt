@@ -40,6 +40,8 @@ libreoffice-fresh
 linux
 linux-firmware
 lutris
+man-db
+man-pages
 mesa-utils
 nautilus
 neovim
