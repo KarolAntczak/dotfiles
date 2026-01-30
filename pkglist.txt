@@ -34,6 +34,7 @@ inter-font
 keychain
 kitty
 less
+lib32-gcc-libs
 lib32-glibc
 libnotify
 libreoffice-fresh
