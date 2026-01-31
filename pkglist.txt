@@ -8,7 +8,6 @@ bluez-utils
 brightnessctl
 catppuccin-gtk-theme-macchiato
 cnijfilter2-mg7700
-conky
 docker
 docker-compose
 dunst
