@@ -58,8 +58,6 @@ pipewire-jack
 pipewire-pulse
 pycharm
 qt5-wayland
-qt6-multimedia-ffmpeg
-qt6-virtualkeyboard
 qt6-wayland
 rofi
 rsync
@@ -71,11 +69,8 @@ simple-scan
 stow
 system-config-printer
 tlp
-ttf-jetbrains-mono
 ttf-jetbrains-mono-nerd
-ttf-nerd-fonts-symbols-mono
 unzip
-vulkan-tools
 waybar-cava
 wine
 wireless-regdb
