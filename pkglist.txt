@@ -71,7 +71,7 @@ system-config-printer
 tlp
 ttf-jetbrains-mono-nerd
 unzip
-waybar-cava
+waybar
 wine
 wireless-regdb
 wireplumber

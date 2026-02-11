@@ -9,7 +9,6 @@
     "modules-center": ["hyprland/window"],
     "modules-right": [
         "tray",
-        "cava",
         "memory",
         "cpu",
         "backlight",
