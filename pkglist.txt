@@ -16,6 +16,7 @@ fastfetch
 fprintd
 gimp
 git
+gnome-disk-utility
 google-chrome
 htop
 hypridle
@@ -25,7 +26,6 @@ hyprpaper
 hyprpolkitagent
 hyprshot
 intel-ucode
-intellij-idea-ultimate-edition
 inter-font
 keychain
 kitty
@@ -70,6 +70,7 @@ stow
 system-config-printer
 tlp
 ttf-jetbrains-mono-nerd
+udiskie
 unzip
 waybar
 wine
