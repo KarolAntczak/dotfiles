@@ -25,6 +25,7 @@ hyprlock
 hyprpaper
 hyprpolkitagent
 hyprshot
+imv
 intel-ucode
 inter-font
 keychain
@@ -45,6 +46,7 @@ network-manager-applet
 noto-fonts-cjk
 noto-fonts-emoji
 nss-mdns
+ntfs-3g
 nvidia-container-toolkit
 nvidia-open
 nvidia-prime
@@ -72,6 +74,8 @@ tlp
 ttf-jetbrains-mono-nerd
 udiskie
 unzip
+vlc
+vlc-plugins-all
 waybar
 wine
 wireless-regdb
