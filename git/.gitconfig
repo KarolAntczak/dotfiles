@@ -4,8 +4,8 @@
 [credential]
 	useHttpPath = true
 [alias]
-	jeb = !git commit --amend --no-edit && git push --force
-	jebut = !git add . && git commit --amend --no-edit && git push --force
+	jeb = !git commit --amend --no-edit && git push --force-with-lease
+	jebut = !git add . && git commit --amend --no-edit && git push --force-with-lease
 [pull]
 	rebase = true
 [rebase]
