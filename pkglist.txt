@@ -50,6 +50,7 @@ ntfs-3g
 nvidia-container-toolkit
 nvidia-open
 nvidia-prime
+nwg-displays
 nwg-look
 obsidian
 papirus-icon-theme
