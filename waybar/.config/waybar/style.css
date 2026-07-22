@@ -43,6 +43,7 @@ window#waybar {
 }
 
 #custom-menu,
+#custom-cava,
 #window,
 #clock,
 #battery,
@@ -53,7 +54,6 @@ window#waybar {
 #workspaces,
 #tray,
 #backlight,
-#cava,
 #backlight-slider {
     background: alpha(@surface0, 0.4);
     padding: 5px 10px;
@@ -165,7 +165,9 @@ window#waybar {
     margin-right: 10px;
 }
 
-#cava {
-   font-size: 12px;
-   margin-right: 10px;
+#custom-cava {
+    font-size: 12px;
+    font-family: monospace;
+    margin-right: 10px;
+    min-width: 60px;
 }
