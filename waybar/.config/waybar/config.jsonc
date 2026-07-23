@@ -133,7 +133,8 @@
     "custom/cava": {
         "exec": "$HOME/.config/waybar/scripts/cava.sh",
         "return-type": "",
-        "tooltip": false
+        "tooltip": false,
+        "restart-interval": 5
     },
 
     "custom/menu": {
