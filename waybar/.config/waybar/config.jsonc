@@ -9,7 +9,6 @@
     "modules-center": ["hyprland/window"],
     "modules-right": [
         "tray",
-        "custom/cava",
         "memory",
         "cpu",
         "backlight",
@@ -129,14 +128,6 @@
         "format-alt": "{icon0}{icon1}{icon2}{icon3}",
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
-
-    "custom/cava": {
-        "exec": "$HOME/.config/waybar/scripts/cava.sh",
-        "return-type": "",
-        "tooltip": false,
-        "restart-interval": 5
-    },
-
     "custom/menu": {
         "format": "󰣇",
         "tooltip": true,
