@@ -9,11 +9,20 @@ import QtQuick.Controls 2.15
 
 Column {
     id: inputContainer
-    
+
     Layout.fillWidth: true
 
     property ComboBox exposeSession: sessionSelect.exposeSession
     property bool failed
+    property bool showFingerprint: password.text.length === 0
+    property bool fingerprintPulsing: false
+
+    function doLogin() {
+        if (showFingerprint) fingerprintPulsing = true
+        config.AllowUppercaseLettersInUsernames == "false"
+            ? sddm.login(username.text.toLowerCase(), password.text, sessionSelect.selectedSession)
+            : sddm.login(username.text, password.text, sessionSelect.selectedSession)
+    }
 
     Item {
         id: errorMessageField
@@ -28,13 +37,13 @@ Column {
 
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
-            
+
             text: failed ? config.TranslateLoginFailedWarning || textConstants.loginFailed + "!" : keyboard.capsLock ? config.TranslateCapslockWarning || textConstants.capslockWarning : null
             font.pointSize: root.font.pointSize * 0.8
             font.italic: true
             color: config.WarningColor
             opacity: 0
-            
+
             states: [
                 State {
                     name: "fail"
@@ -101,7 +110,7 @@ Column {
                 //  minus padding
                 width: popupHandler.width - 20
                 anchors.horizontalCenter: popupHandler.horizontalCenter
-                
+
                 contentItem: Text {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
@@ -112,7 +121,7 @@ Column {
                     font.family: root.font.family
                     color: config.DropdownTextColor
                 }
-                
+
                 background: Rectangle {
                     color: selectUser.highlightedIndex === index ? config.DropdownSelectedBackgroundColor : "transparent"
                 }
@@ -120,19 +129,22 @@ Column {
 
             indicator: Button {
                 id: usernameIcon
-                    
+    Keys.enabled: false
+
+    KeyNavigation.tab: null
+    KeyNavigation.backtab: null
                 width: selectUser.height * 1
                 height: parent.height
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: selectUser.height * 0
-                
+
                 icon.height: parent.height * 0.25
                 icon.width: parent.height * 0.25
                 enabled: false
                 icon.color: config.UserIconColor
                 icon.source: Qt.resolvedUrl("../Assets/User.svg")
-                    
+
                 background: Rectangle {
                     color: "transparent"
                     border.color: "transparent"
@@ -156,7 +168,7 @@ Column {
 
                 contentItem: ListView {
                     implicitHeight: contentHeight + 20
-                    
+
                     clip: true
                     model: selectUser.popup.visible ? selectUser.delegateModel : null
                     currentIndex: selectUser.highlightedIndex
@@ -228,7 +240,7 @@ Column {
             placeholderTextColor: config.PlaceholderTextColor
             selectByMouse: true
             renderType: Text.QtRendering
-            
+
             onFocusChanged:{
                 if(focus)
                     selectAll()
@@ -241,9 +253,9 @@ Column {
                 border.width: parent.activeFocus ? 2 : 1
                 radius: config.RoundCorners || 0
             }
-            
-            onAccepted: config.AllowUppercaseLettersInUsernames == "false" ? sddm.login(username.text.toLowerCase(), password.text, sessionSelect.selectedSession) : sddm.login(username.text, password.text, sessionSelect.selectedSession)
-            KeyNavigation.down: passwordIcon
+
+            onAccepted: inputContainer.doLogin()
+            KeyNavigation.down: inputContainer.showFingerprint ? password : passwordIcon
 
             states: [
                 State {
@@ -261,24 +273,63 @@ Column {
             ]
         }
     }
-    
+
     Item {
         id: passwordField
 
         height: root.font.pointSize * 4.5
         width: parent.width / 2
         anchors.horizontalCenter: parent.horizontalCenter
-        
+
+        Button {
+            id: fingerprintIcon
+
+            visible: inputContainer.showFingerprint
+            height: parent.height
+            width: selectUser.height * 1
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            z: 2
+
+            icon.height: parent.height * 0.38
+            icon.width: parent.height * 0.38
+            icon.color: config.HoverPasswordIconColor
+            icon.source: Qt.resolvedUrl("../Assets/Fingerprint.svg")
+            enabled: false
+
+            background: Rectangle {
+                color: "transparent"
+                border.color: "transparent"
+            }
+
+            SequentialAnimation on opacity {
+                running: inputContainer.fingerprintPulsing
+                loops: Animation.Infinite
+                NumberAnimation { to: 0.1; duration: 700; easing.type: Easing.InOutSine }
+                NumberAnimation { to: 1.0; duration: 700; easing.type: Easing.InOutSine }
+                onStopped: fingerprintIcon.opacity = 1.0
+            }
+
+            SequentialAnimation on scale {
+                running: inputContainer.fingerprintPulsing
+                loops: Animation.Infinite
+                NumberAnimation { to: 0.82; duration: 700; easing.type: Easing.InOutSine }
+                NumberAnimation { to: 1.18; duration: 700; easing.type: Easing.InOutSine }
+                onStopped: fingerprintIcon.scale = 1.0
+            }
+        }
+
         Button {
             id: passwordIcon
-            
+
+            visible: !inputContainer.showFingerprint
             height: parent.height
             width: selectUser.height * 1
             anchors.left: parent.left
             anchors.leftMargin: selectUser.height * 0
             anchors.verticalCenter: parent.verticalCenter
             z: 2
-            
+
             icon.height: parent.height * 0.25
             icon.width: parent.height * 0.25
             icon.color: config.PasswordIconColor
@@ -291,17 +342,8 @@ Column {
 
             states: [
                 State {
-                    name: "visiblePasswordFocused"
-                    when: passwordIcon.checked && passwordIcon.activeFocus
-                    PropertyChanges {
-                        target: passwordIcon
-                        icon.source: Qt.resolvedUrl("../Assets/Password.svg")
-                        icon.color: config.HoverPasswordIconColor
-                    }
-                },
-                State {
-                    name: "visiblePasswordHovered"
-                    when: passwordIcon.checked && passwordIcon.hovered
+                    name: "visiblePasswordActive"
+                    when: passwordIcon.checked && (passwordIcon.hovered || passwordIcon.activeFocus)
                     PropertyChanges {
                         target: passwordIcon
                         icon.source: Qt.resolvedUrl("../Assets/Password.svg")
@@ -317,20 +359,10 @@ Column {
                     }
                 },
                 State {
-                    name: "hiddenPasswordFocused"
-                    when:  passwordIcon.enabled && passwordIcon.activeFocus
+                    name: "active"
+                    when: passwordIcon.hovered || passwordIcon.activeFocus
                     PropertyChanges {
                         target: passwordIcon
-                        icon.source: Qt.resolvedUrl("../Assets/Password2.svg")
-                        icon.color: config.HoverPasswordIconColor
-                    }
-                },
-                State {
-                    name: "hiddenPasswordHovered"
-                    when: passwordIcon.hovered
-                    PropertyChanges {
-                        target: passwordIcon
-                        icon.source: Qt.resolvedUrl("../Assets/Password2.svg")
                         icon.color: config.HoverPasswordIconColor
                     }
                 }
@@ -350,18 +382,20 @@ Column {
             width: parent.width
             anchors.centerIn: parent
             horizontalAlignment: TextInput.AlignHCenter
-            
+
             font.bold: true
             color: config.PasswordFieldTextColor
             focus: config.PasswordFocus == "true" ? true : false
             echoMode: passwordIcon.checked ? TextInput.Normal : TextInput.Password
-            placeholderText: config.TranslatePlaceholderPassword || textConstants.password
+            placeholderText: inputContainer.showFingerprint
+                ? "scan fingerprint"
+                : (config.TranslatePlaceholderPassword || textConstants.password)
             placeholderTextColor: config.PlaceholderTextColor
             passwordCharacter: "•"
             passwordMaskDelay: config.HideCompletePassword == "true" ? undefined : 1000
             renderType: Text.QtRendering
             selectByMouse: true
-            
+
             background: Rectangle {
                 color: config.PasswordFieldBackgroundColor
                 opacity: 0.2
@@ -369,7 +403,8 @@ Column {
                 border.width: parent.activeFocus ? 2 : 1
                 radius: config.RoundCorners || 0
             }
-            onAccepted: config.AllowUppercaseLettersInUsernames == "false" ? sddm.login(username.text.toLowerCase(), password.text, sessionSelect.selectedSession) : sddm.login(username.text, password.text, sessionSelect.selectedSession)
+            onTextChanged: if (text.length > 0) inputContainer.fingerprintPulsing = false
+            onAccepted: inputContainer.doLogin()
             KeyNavigation.down: loginButton
         }
 
@@ -394,7 +429,7 @@ Column {
                     duration: 150
                 }
             }
-        ]        
+        ]
     }
 
     Item {
@@ -407,7 +442,7 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
 
         visible: config.HideLoginButton == "true" ? false : true
-        
+
         Button {
             id: loginButton
 
@@ -415,7 +450,7 @@ Column {
             implicitWidth: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            
+
             text: config.TranslateLogin || textConstants.login
             enabled: config.AllowEmptyPassword == "true" || username.text != "" && password.text != "" ? true : false
             hoverEnabled: true
@@ -502,10 +537,10 @@ Column {
                 }
             ]
 
-            onClicked: config.AllowUppercaseLettersInUsernames == "false" ? sddm.login(username.text.toLowerCase(), password.text, sessionSelect.selectedSession) : sddm.login(username.text, password.text, sessionSelect.selectedSession)
+            onClicked: inputContainer.doLogin()
             Keys.onReturnPressed: clicked()
             Keys.onEnterPressed: clicked()
-            
+
             KeyNavigation.down: config.HideSystemButtons == "true" ? virtualKeyboard : systemButtons.children[0]
         }
     }
@@ -514,6 +549,7 @@ Column {
         target: sddm
         function onLoginSucceeded() {}
         function onLoginFailed() {
+            fingerprintPulsing = false
             failed = true
             resetError.running ? resetError.stop() && resetError.start() : resetError.start()
         }
