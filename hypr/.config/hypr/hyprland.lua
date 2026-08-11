@@ -64,6 +64,7 @@ hl.config({
     input = {
         kb_layout    = "pl",
         follow_mouse = 1,
+        mouse_refocus = false,
         sensitivity  = 0,
         touchpad = {
             scroll_factor  = 0.2,
@@ -160,13 +161,9 @@ hl.bind("CTRL + Print",     hl.dsp.exec_cmd("hyprshot -m output"))
 -- Window rules
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize" })
 hl.window_rule({ name = "terminal-opacity",         match = { class = "kitty" },                           opacity = "0.8 0.7" })
-hl.window_rule({ name = "browser-opacity",          match = { class = "google-chrome-stable" },            opacity = "1.0 1.0" })
--- Float all by default, then tile specific apps
-hl.window_rule({ name = "float-and-center-all",     match = { class = ".*" },                              float = true, center = true })
-hl.window_rule({ name = "size-floating-cap",        match = { class = ".*" },                              size = "monitor_w*0.6 monitor_h*0.6" })
-hl.window_rule({ name = "no-float-kitty",           match = { class = "^kitty$" },                         float = false })
-hl.window_rule({ name = "no-float-chrome",          match = { class = "^google-chrome" },                  float = false })
-hl.window_rule({ name = "no-float-jetbrains",       match = { class = "^(jetbrains|jetbrains-pycharm)$" }, float = false })
+hl.window_rule({ name = "browser-opacity",          match = { class = "google-chrome-stable" },            opacity = "1.0 override 1.0 override" })
+hl.window_rule({ name = "modal-dialogs",            match = { modal = true }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true, })
+hl.window_rule({ name = "utility-apps",             match = { class = "^(blueman-manager|nm-connection-editor|pavucontrol|system-config-printer|signal)$" }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true, })
 
 -- Autostart
 hl.on("hyprland.start", function()
