@@ -1,1 +1,36 @@
-/usr/share/themes/adw-gtk3-dark/gtk-4.0/gtk.css
+/* User GTK4 overrides — loaded after the system theme.
+ *
+ * Nautilus: make only the window background translucent so the wallpaper
+ * shows through, while file icons, labels, headerbar and sidebar contents
+ * stay fully opaque.
+ *
+ * How it works: every layer that paints an opaque background (the window,
+ * the content view, the folder-view widgets) is cleared to transparent,
+ * then a single semi-transparent tint is applied on the window itself.
+ * Colors are Catppuccin Macchiato "base" (#24273a) / "blue" (#8aadf4).
+ */
+
+window.nautilus-window,
+window.nautilus-window .nautilus-window-slot,
+window.nautilus-window .nautilus-window-slot > box,
+window.nautilus-window .view,
+window.nautilus-window .view.icon-view,
+window.nautilus-window flowbox,
+window.nautilus-window gridview,
+window.nautilus-window columnview,
+window.nautilus-window columnview > listview,
+window.nautilus-window scrolledwindow,
+window.nautilus-window scrolledwindow > viewport {
+  background-color: transparent;
+}
+
+window.nautilus-window {
+  background-color: rgba(36, 39, 58, 0.80);
+}
+
+/* Keep selected/hovered items readable against the translucent backdrop. */
+window.nautilus-window .view:selected,
+window.nautilus-window gridview child:selected,
+window.nautilus-window columnview row:selected {
+  background-color: rgba(138, 173, 244, 0.35);
+}

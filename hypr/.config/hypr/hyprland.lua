@@ -160,10 +160,12 @@ hl.bind("CTRL + Print",     hl.dsp.exec_cmd("hyprshot -m output"))
 
 -- Window rules
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize" })
-hl.window_rule({ name = "terminal-opacity",         match = { class = "kitty" },                           opacity = "0.8 0.7" })
+hl.window_rule({ name = "terminal-opacity",         match = { class = "kitty" },                           opacity = "0.8 override 0.7 override" })
 hl.window_rule({ name = "browser-opacity",          match = { class = "google-chrome-stable" },            opacity = "1.0 override 1.0 override" })
+hl.window_rule({ name = "float-opacity",            match = { float = true },                              opacity = "0.92 0.85" })
 hl.window_rule({ name = "modal-dialogs",            match = { modal = true }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true, })
 hl.window_rule({ name = "utility-apps",             match = { class = "^(blueman-manager|nm-connection-editor|pavucontrol|system-config-printer|signal)$" }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true, })
+hl.window_rule({ name = "nautilus",                 match = { class = "^(org\\.gnome\\.Nautilus)$" }, float = true, center = true, size = { 1000, 700 }, persistent_size = true, opacity = "1.0 override 1.0 override" })
 
 -- Autostart
 hl.on("hyprland.start", function()
