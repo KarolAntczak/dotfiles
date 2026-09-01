@@ -1,5 +1,5 @@
 [user]
-	email = karol.antczak@tss.black
+	email = kantczak@safestack.eu
 	name = Karol Antczak
 [credential]
 	useHttpPath = true
@@ -10,3 +10,16 @@
 	rebase = true
 [rebase]
 	autoStash = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	autocrlf = input
+[lfs]
+	concurrenttransfers = 3
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true
