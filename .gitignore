@@ -18,3 +18,7 @@ Kitware/
 secrets/
 .env
 
+# noctalia-generated GTK palette (regenerated from the active color scheme)
+gtk-3.0/.config/gtk-3.0/noctalia.css
+gtk-4.0/.config/gtk-4.0/noctalia.css
+

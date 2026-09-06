@@ -10,15 +10,10 @@ handle() {
         monitoradded)
             [[ "$mon" == "eDP-1" ]] && return
             lid_closed && hyprctl keyword monitor "eDP-1, disable"
-            sleep 0.5; killall waybar; waybar &
             ;;
         monitorremoved)
             [[ "$mon" == "eDP-1" ]] && return
-            if lid_closed; then
-                systemctl suspend
-            else
-                sleep 0.5; killall waybar; waybar &
-            fi
+            lid_closed && systemctl suspend
             ;;
     esac
 }

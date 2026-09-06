@@ -1,3 +1,5 @@
+/* Noctalia-generated palette (color variables only). Kept first so the overrides below win. */
+
 /* User GTK4 overrides — loaded after the system theme.
  *
  * Nautilus: make only the window background translucent so the wallpaper
@@ -9,6 +11,8 @@
  * then a single semi-transparent tint is applied on the window itself.
  * Colors are Catppuccin Macchiato "base" (#24273a) / "blue" (#8aadf4).
  */
+
+@import url("noctalia.css");
 
 window.nautilus-window,
 window.nautilus-window .nautilus-window-slot,
@@ -34,3 +38,4 @@ window.nautilus-window gridview child:selected,
 window.nautilus-window columnview row:selected {
   background-color: rgba(138, 173, 244, 0.35);
 }
+
