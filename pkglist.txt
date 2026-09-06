@@ -10,6 +10,8 @@ bluez-utils
 brightnessctl
 claude-code
 code-marketplace
+cups
+cups-filters
 ddcutil
 dnsmasq
 docker
@@ -17,6 +19,7 @@ docker-compose
 efibootmgr
 fastfetch
 fprintd
+ghostscript
 gimp
 git
 gnome-disk-utility
