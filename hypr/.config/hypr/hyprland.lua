@@ -149,8 +149,8 @@ hl.bind("XF86AudioPause",        hl.dsp.exec_cmd("playerctl play-pause"),       
 hl.bind("XF86AudioPlay",         hl.dsp.exec_cmd("playerctl play-pause"),        { locked = true })
 hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd("playerctl previous"),          { locked = true })
 
-hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd("~/.config/hypr/scripts/lid_closed.sh"), { locked = true })
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("~/.config/hypr/scripts/lid_opened.sh"), { locked = true })
+hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd("hyprctl eval \"hl.monitor({output = 'eDP-1', disabled = true})\""), { locked = true })
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl eval \"hl.monitor({output = 'eDP-1', disabled = false, mode = 'preferred', position = 'auto', scale = 1.0})\" && brightnessctl set 90%"), { locked = true })
 
 hl.bind("CTRL + Escape",    hl.dsp.exec_cmd("noctalia msg bar-toggle"))
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
@@ -171,7 +171,6 @@ hl.window_rule({ match = { class = "dev.noctalia.Noctalia" }, float = true, size
 
 -- Autostart
 hl.on("hyprland.start", function()
-    hl.exec_cmd("~/.config/hypr/scripts/monitor-hotplug.sh")
     hl.exec_cmd("noctalia")
     hl.exec_cmd("brightnessctl set 90%")
     hl.exec_cmd("udiskie")
