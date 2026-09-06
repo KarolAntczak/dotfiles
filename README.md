@@ -16,7 +16,8 @@ The simplest way is to use [GNU stow](https://www.gnu.org/software/stow/):
 ```bash
 stow hypr waybar rofi kitty # ... and other configs you need
 ```
-For SDDM, you have to copy contents manually (symlinks don't work, unfortunately).  
+For `greetd` (the display manager, running the Noctalia Greeter), the files are
+system files — copy them in manually, see [greetd/README.md](greetd/README.md).
 
 You can also copy contents of each config manually, without using stow at all. 
 

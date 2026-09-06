@@ -1,0 +1,27 @@
+#%PAM-1.0
+# greetd + noctalia-greeter -> /etc/pam.d/greetd
+#
+# Not stowed. The greetd package ships its own copy; overwrite it:
+#   sudo install -Dm644 etc/pam.d/greetd /etc/pam.d/greetd
+#
+# Fingerprint OR password. pam_unix runs first so typing your password logs in
+# instantly; an empty submit (allow_empty_password in greeter.toml) or a wrong
+# password falls through to pam_fprintd. This ordering avoids the "place your
+# finger" stall that a fprintd-first stack imposes on password logins.
+# pam_fprintd is capped at one 15s attempt so a password typo is rejected
+# quickly instead of after the default 3x30s.
+
+auth       required      pam_securetty.so
+auth       requisite     pam_nologin.so
+auth       required      pam_faillock.so             preauth
+auth       [success=2 default=ignore]  pam_unix.so   try_first_pass nullok
+auth       [success=1 default=ignore]  pam_fprintd.so   max-tries=1 timeout=15
+auth       [default=die] pam_faillock.so             authfail
+auth       optional      pam_permit.so
+auth       required      pam_env.so
+auth       required      pam_faillock.so             authsucc
+
+account    include       system-local-login
+password   include       system-local-login
+session    include       system-local-login
+session    required      pam_systemd.so

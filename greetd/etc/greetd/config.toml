@@ -1,0 +1,18 @@
+# greetd configuration -> /etc/greetd/config.toml
+# Not stowed. Copy it in:
+#   sudo install -Dm644 etc/greetd/config.toml /etc/greetd/config.toml
+#
+# Verify the wrapper path and session names against this file after installing
+# noctalia-greeter:
+#   which noctalia-greeter-session
+#   noctalia-greeter sessions            # --session matches the .desktop Name=
+#   sudo noctalia-greeter-print-greetd-config
+
+[terminal]
+vt = 1
+
+[default_session]
+# Noctalia Greeter with Hyprland preselected. The value is the .desktop Name=
+# field (from `noctalia-greeter sessions`), not the filename stem.
+command = "/usr/bin/noctalia-greeter-session -- --session Hyprland"
+user = "greeter"

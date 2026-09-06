@@ -1,0 +1,18 @@
+[Desktop Entry]
+# Override of /usr/share/wayland-sessions/hyprland.desktop (hyprland package).
+# /usr/local/share is scanned first by noctalia-greeter, and it dedupes by
+# Name=, so this entry wins. Sole purpose: redirect Hyprland's early stdout
+# ("Welcome to Hyprland!" banner + version) away from the VT so the greeter ->
+# session handoff doesn't flash text. greetd runs the Exec through $SHELL -c,
+# so the redirection tokens are honoured. Hyprland still writes its real log to
+# $XDG_RUNTIME_DIR/hypr/<instance>/hyprland.log.
+#
+# Not stowed. Copy it in:
+#   sudo install -Dm644 usr/local/share/wayland-sessions/hyprland.desktop \
+#     /usr/local/share/wayland-sessions/hyprland.desktop
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=/usr/bin/start-hyprland >/dev/null 2>&1
+Type=Application
+DesktopNames=Hyprland
+Keywords=tiling;wayland;compositor;

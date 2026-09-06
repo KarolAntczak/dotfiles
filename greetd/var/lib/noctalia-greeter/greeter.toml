@@ -1,0 +1,31 @@
+# Noctalia Greeter declarative config -> /var/lib/noctalia-greeter/greeter.toml
+# Not stowed. Copy it in (owned by the `greeter` user):
+#   sudo install -Dm644 -o greeter -g greeter \
+#     var/lib/noctalia-greeter/greeter.toml /var/lib/noctalia-greeter/greeter.toml
+#
+# Declarative values here take precedence over anything pushed by
+# "Settings -> Security -> Noctalia Greeter -> Sync Now".
+
+[keyboard]
+layout = "pl"          # matches hyprland.lua kb_layout
+
+[cursor]
+theme = "default"
+size = 24
+
+[auth]
+# Press Enter with an empty password field to fall through to the fingerprint
+# reader (see the pam_fprintd line in /etc/pam.d/greetd).
+allow_empty_password = true
+# Don't let the greetd watchdog abort the fingerprint scan (pam_fprintd waits
+# up to 15s - see /etc/pam.d/greetd). 0 disables the watchdog.
+request_timeout = 0
+
+# Output layout / scale is handled by the shell -> greeter sync.
+# Pin it here only if the auto layout is wrong, e.g.:
+# [output]
+# name = "eDP-1"
+# scale = 1
+
+# [idle]
+# timeout = 300
