@@ -160,6 +160,7 @@ hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("noctalia msg panel-toggle sessi
 hl.bind("Print",            hl.dsp.exec_cmd("noctalia msg screenshot-region"))
 hl.bind("SHIFT + Print",    hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen"))
 hl.bind("CTRL + Print",     hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen all"))
+hl.bind("ALT + Print",      hl.dsp.exec_cmd("noctalia msg screenshot-window"))
 
 -- Window rules
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize" })

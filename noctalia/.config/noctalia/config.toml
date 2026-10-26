@@ -265,8 +265,6 @@ effects         = true              # visual weather effects
 enable_overdrive = false            # allow volume above 100% (up to 150%)
 enable_sounds = false               # master toggle for UI feedback sounds
 sound_volume = 0.5                  # 0.0 - 1.0
-volume_change_sound = ""            # empty = bundled sounds/volume-change.wav
-notification_sound = ""             # empty = bundled sounds/notification.wav
 
 # ── Brightness ────────────────────────────────────────────────────────────────
 
@@ -359,14 +357,14 @@ auto_hide          = false
 # show_on_workspace_switch = true   # with auto_hide: briefly reveal when the active workspace changes
 reserve_space      = true
 capsule            = false
-# capsule_fill     = "surface_variant"
+# capsule_fill     = "surface_container"
 # capsule_radius   = 8.0            # omit/blank in Settings for automatic pill radius; 0.0 = square
 # capsule_opacity  = 1.0
-# capsule_border   = "outline"      # uncomment for a border on all widgets
+# capsule_border   = "outline_variant" # uncomment for a border on all widgets
 
-start  = ["workspaces"]
+start  = ["workspaces", "gap", "audio_visualizer"]
 center = ["active_window"]
-end    = ["tray", "notifications", "gap", "network", "bluetooth", "gap", "cpu", "separator", "volume", "separator", "brightness", "separator", "battery", "gap", "clock"]
+end    = ["tray", "gap", "network", "bluetooth", "gap", "cpu", "separator", "volume", "separator", "brightness", "separator", "battery", "gap", "notifications", "clock"]
 
 # Commands for the bar margin outside widget sections (dead zone):
 # [bar.main.dead_zone.actions]
@@ -510,6 +508,12 @@ show_empty_label = true
 
 [widget.cpu]
 visualization = "none"
+
+[widget.audio_visualizer]
+width = 160
+mirrored = true
+show_wave = true
+show_when_idle = false
 
 # [widget.launcher]
 # custom_image = "/path/to/image.png"
