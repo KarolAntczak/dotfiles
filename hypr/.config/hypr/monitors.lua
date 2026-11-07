@@ -1,9 +1,13 @@
-hl.monitor({
+local M = {}
+
+M.laptop = {
     output   = "eDP-1",
     mode     = "1920x1200@59.95",
     position = "0x0",
     scale    = 1.0,
-})
+    disabled = false,
+}
+hl.monitor(M.laptop)
 
 hl.monitor({
     output   = "DP-2",
@@ -11,3 +15,5 @@ hl.monitor({
     position = "1920x0",
     scale    = 1.0,
 })
+
+return M
