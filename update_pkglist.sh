@@ -1,7 +1,7 @@
 #!/bin/bash
 # Generates list of installed Pacman + AUR packages
 
-OUTPUT_FILE="pkglist.txt"
+OUTPUT_FILE="$(dirname "$(realpath "$0")")/pkglist.txt"
 
 echo "Generating Pacman + AUR packages..."
 
