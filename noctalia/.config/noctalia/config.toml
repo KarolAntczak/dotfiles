@@ -1,5 +1,7 @@
-# Noctalia configuration: all settings at their defaults.
-# Copy to ~/.config/noctalia/config.toml and edit what you need.
+# Noctalia configuration (based on the shipped defaults, with personal edits).
+# Changes made in the Settings window land in ~/.local/state/noctalia/settings.toml,
+# which overrides this file. Move shared settings here; keep only machine-local ones
+# (e.g. wallpaper) in settings.toml.
 # Most changes are hot-reloaded via inotify; startup-only settings are noted inline.
 
 # ── Shell ─────────────────────────────────────────────────────────────────────
@@ -17,6 +19,7 @@ offline_mode          = false        # block all outgoing HTTP when true
 # panel_anchor_bar   = "main"        # bar panels attach to without a source bar; omit = first enabled bar
 telemetry_enabled     = false        # send an anonymous startup ping
 niri_overview_type_to_launch_enabled = false # opt in to type-to-launch from niri overview
+screen_time_enabled   = true
 polkit_agent          = true
 password_style        = "default"    # default | random
 settings_show_advanced = true        # show advanced settings by default in Settings
@@ -71,7 +74,8 @@ open_near_click_wallpaper      = false # for attached/floating placement, follow
 open_near_click_session        = false # for attached/floating placement, follow the bar click instead of bar-center
 
 [shell.launcher]
-categories    = true                    # show category filters in the launcher
+categories    = false                   # show category filters in the launcher
+layout        = "simple"
 show_icons    = true                    # show application icons in launcher results
 show_app_origin_indicator = true        # show package origin indicators on application results
 compact       = false                   # use smaller icons and tighter result rows
@@ -101,6 +105,9 @@ prefix = "wall"
 [shell.launcher.providers.windows]
 prefix = "win"
 
+[shell.screen_corners]
+size = 8
+
 [shell.mpris]
 blacklist = []                      # ignore MPRIS players by bus/identity/desktop entry token
 
@@ -121,8 +128,9 @@ directory           = "~/.config/assets/wallpapers"              # empty = XDG P
 directory_light     = ""            # optional day-mode directory
 directory_dark      = ""            # optional night-mode directory
 
-[wallpaper.default]
-path = "~/.config/assets/wallpapers/sunset.jpg"                            # optional initial/default wallpaper path
+# Wallpaper choice is machine-local: it lives in ~/.local/state/noctalia/settings.toml
+# ([wallpaper.default] / per-monitor). Set it via the wallpaper panel or:
+#   noctalia msg wallpaper-set <path>
 
 [wallpaper.automation]
 enabled                    = false
@@ -135,7 +143,7 @@ recursive                  = true    # include subdirectories when picking rando
 [theme]
 mode   = "dark"                     # dark | light | auto
 source = "builtin"                  # builtin | wallpaper | community
-builtin = "Catppuccin"              # Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
+builtin = "Rosé Pine"               # Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
                                     # Kanagawa | Noctalia | Nord | Rosé Pine | Tokyo-Night
 # community_palette = "Noctalia"    # fetched from api.noctalia.dev, cached locally
 # wallpaper_scheme  = "m3-content"  # m3-tonal-spot | m3-content | m3-fruit-salad |
@@ -146,7 +154,7 @@ pure_black_dark = false             # anchor dark surfaces to true black (OLED);
 
 [theme.templates]
 enable_builtin_templates            = true
-builtin_ids                = ["gtk3", "gtk4"]  # opt-in; list ids with: noctalia theme --list-templates
+builtin_ids                = ["gtk3", "gtk4", "qt"]  # opt-in; list ids with: noctalia theme --list-templates
 enable_community_templates = true
 community_ids              = []     # fetched from api.noctalia.dev/templates, cached locally
 
@@ -253,7 +261,7 @@ show_week_numbers           = false         # ISO 8601 week numbers in the month
 # ── Weather ───────────────────────────────────────────────────────────────────
 
 [weather]
-enabled         = false
+enabled         = true 
 refresh_minutes = 30
 unit            = "celsius"         # celsius | fahrenheit
 effects         = true              # visual weather effects
@@ -294,7 +302,7 @@ temperature_night    = 4000         # Kelvin
 # Single source of "where am I"; feeds Weather, Night Light, and Theme auto mode.
 
 [location]
-auto_locate      = false             # resolve coordinates from IP when true
+auto_locate      = true              # resolve coordinates from IP when true
 address          = ""                # e.g. "Toronto, ON"; geocoded when auto_locate = false
 # latitude       = 52.5200           # manual coordinates, used when auto_locate and address are off
 # longitude      = 13.4050
@@ -322,21 +330,21 @@ enabled = true
 
 [idle.behavior.suspend]
 timeout = 1800
-action = "suspend"
+action = "lock_and_suspend"
 enabled = true
 
 # ── Keybinds ──────────────────────────────────────────────────────────────────
 
 [keybinds]
-validate = ["return", "kp_enter", "space"]
-cancel   = ["escape"]
-left     = ["left"]
-right    = ["right"]
-up       = ["up"]
-down     = ["down"]
-tab_next = ["tab"]
-tab_previous = ["shift+iso_left_tab"]
-delete   = ["del"]
+validate = ["Return", "KP_Enter", "space"]
+cancel   = ["Escape"]
+left     = ["Left"]
+right    = ["Right"]
+up       = ["Up"]
+down     = ["Down"]
+tab_next = ["Tab"]
+tab_previous = ["Shift+ISO_Left_Tab"]
+delete   = ["Delete"]
 
 # ── Bar ───────────────────────────────────────────────────────────────────────
 
@@ -583,3 +591,187 @@ length = 32
 style = "regular"
 font_scale = 1.1
 scale = 1.1
+
+# ── Lock Screen Widgets (layout from the Settings editor) ──────────────────────
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-login-box@DP-2",
+    "lockscreen-login-box@DP-7",
+    "lockscreen-login-box@FALLBACK",
+    "lockscreen-login-box@DP-6",
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002"
+]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-2"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-6"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1720.0001220703125
+    cy = 931.0
+    output = "DP-6"
+    placement_height = 1440.0
+    placement_width = 3440.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-6".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = false
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = false
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-7"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1720.0
+    cy = 1258.0
+    output = "DP-7"
+    placement_height = 1440.0
+    placement_width = 3440.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-7".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "FALLBACK"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 811.0
+    output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 208.0
+    box_width = 400.0
+    cx = 1720.0001220703125
+    cy = 720.0
+    output = "DP-6"
+    placement_height = 1440.0
+    placement_width = 3440.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background_opacity = 0.0
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 208.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 600.0
+    output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        background_opacity = 0.0
+
