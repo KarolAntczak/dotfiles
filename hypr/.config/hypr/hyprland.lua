@@ -34,6 +34,7 @@ hl.config({
         force_default_wallpaper  = 0,
         disable_hyprland_logo    = true,
         disable_splash_rendering = true,
+        bell_sound               = "none",
     },
     input = {
         kb_layout    = "pl",
