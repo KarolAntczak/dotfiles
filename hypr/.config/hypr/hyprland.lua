@@ -10,6 +10,7 @@ hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", 1)
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("SSH_AUTH_SOCK", os.getenv("XDG_RUNTIME_DIR") .. "/ssh-agent.socket")
 hl.env("_JAVA_OPTIONS", "-Dawt.useSystemAAFontSettings=on")
+hl.env("GDK_DISABLE", "vulkan")
 
 -- Config
 hl.config({
