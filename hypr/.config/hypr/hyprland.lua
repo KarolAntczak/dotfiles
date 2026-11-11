@@ -3,13 +3,9 @@ local monitors = require("monitors")
 local mainMod = "SUPER"
 
 -- Environment variables
-hl.env("XCURSOR_SIZE", 24)
-hl.env("HYPRCURSOR_SIZE", 24)
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", 1)
-hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("SSH_AUTH_SOCK", os.getenv("XDG_RUNTIME_DIR") .. "/ssh-agent.socket")
-hl.env("_JAVA_OPTIONS", "-Dawt.useSystemAAFontSettings=on")
 hl.env("GDK_DISABLE", "vulkan")
 
 -- Config
@@ -31,6 +27,7 @@ hl.config({
         },
     },
     dwindle    = { preserve_split = true },
+    render     = { cm_auto_hdr = 0 },
     misc = {
         force_default_wallpaper  = 0,
         disable_hyprland_logo    = true,
@@ -82,7 +79,6 @@ end
 hl.bind(mainMod .. " + T",         hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + B",         hl.dsp.exec_cmd("google-chrome-stable"))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
-hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
 hl.bind(mainMod .. " + F",         hl.dsp.exec_cmd("nautilus"))
 hl.bind(mainMod .. " + backslash", toggle_floating)
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
@@ -135,11 +131,14 @@ hl.bind("XF86AudioPlay",         hl.dsp.exec_cmd("noctalia msg media toggle"),  
 hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd("noctalia msg media previous"), { locked = true })
 
 hl.bind("switch:on:Lid Switch", function()
+    if not pcall(os.execute, "brightnessctl -s >/dev/null") then
+        hl.exec_cmd("brightnessctl -s")
+    end
     hl.monitor({ output = monitors.laptop.output, disabled = true })
 end, { locked = true })
 hl.bind("switch:off:Lid Switch", function()
     hl.monitor(monitors.laptop)
-    hl.exec_cmd("brightnessctl set 90%")
+    hl.exec_cmd("brightnessctl -r || brightnessctl set 90%")
 end, { locked = true })
 
 hl.bind("CTRL + Escape",    hl.dsp.exec_cmd("noctalia msg bar-toggle"))
@@ -150,20 +149,20 @@ hl.bind("CTRL + Print",     hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen 
 hl.bind("ALT + Print",      hl.dsp.exec_cmd("noctalia msg screenshot-window"))
 
 -- Window rules
-hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize" })
-hl.window_rule({ name = "terminal-opacity",         match = { class = "kitty" },                           opacity = "0.8 override 0.7 override" })
-hl.window_rule({ name = "browser-opacity",          match = { class = "^(google-chrome)$" },               opacity = "1.0 override 1.0 override" })
-hl.window_rule({ name = "float-opacity",            match = { float = true },                              opacity = "0.92 0.85" })
-hl.window_rule({ name = "modal-dialogs",            match = { modal = true }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true, })
-hl.window_rule({ name = "utility-apps",             match = { class = "^(blueman-manager|nm-connection-editor|system-config-printer|signal)$" }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true, })
-hl.window_rule({ name = "nautilus",                 match = { class = "^(org\\.gnome\\.Nautilus)$" }, float = true, center = true, size = { 1000, 700 }, persistent_size = true, opacity = "1.0 override 1.0 override" })
+hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" },                                   suppress_event = "maximize" })
+hl.window_rule({ name = "terminal-opacity",         match = { class = "kitty" },                                opacity = "0.8 override 0.7 override" })
+hl.window_rule({ name = "float-opacity",            match = { float = true },                                   opacity = "0.92 0.85" })
+hl.window_rule({ name = "opaque-apps",              match = { class = "google-chrome|org\\.gnome\\.Nautilus" }, opacity = "1.0 override 1.0 override" })
+hl.window_rule({ name = "modal-dialogs",            match = { modal = true },                                   float = true, center = true, min_size = { 400, 200 }, persistent_size = true })
+hl.window_rule({ name = "utility-apps",             match = { class = "blueman-manager|system-config-printer|signal" }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true })
+hl.window_rule({ name = "nautilus",                 match = { class = "org\\.gnome\\.Nautilus" },               float = true, center = true, size = { 1000, 700 }, persistent_size = true })
+hl.window_rule({ name = "noctalia-settings",        match = { class = "dev\\.noctalia\\.Noctalia" },            float = true, size = { 1080, 920 } })
+
 hl.layer_rule({ name = "noctalia", match = { namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$" }, no_anim = true, ignore_alpha = 0.5, blur = true, blur_popups = true })
-hl.window_rule({ match = { class = "dev.noctalia.Noctalia" }, float = true, size = { 1080, 920 } })
 
 -- Autostart
 hl.on("hyprland.start", function()
     hl.exec_cmd("noctalia")
-    hl.exec_cmd("brightnessctl set 90%")
     hl.exec_cmd("udiskie")
     hl.exec_cmd("signal-desktop --start-in-tray")
 end)

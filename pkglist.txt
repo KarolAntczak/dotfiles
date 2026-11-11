@@ -11,7 +11,6 @@ brightnessctl
 claude-code
 code-marketplace
 cups
-cups-filters
 ddcutil
 dnsmasq
 docker
@@ -44,7 +43,7 @@ man-db
 man-pages
 nautilus
 neovim
-network-manager-applet
+networkmanager
 noctalia
 noctalia-greeter
 noto-fonts-cjk
@@ -54,7 +53,6 @@ ntfs-3g
 nvidia-open
 nvidia-prime
 nwg-displays
-nwg-look
 obsidian
 papirus-icon-theme
 pipewire
