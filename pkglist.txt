@@ -25,14 +25,10 @@ gnome-disk-utility
 google-chrome
 htop
 hyprland
-imv
 intel-ucode
-inter-font
 jetbrains-toolbox
-jq
 kitty
 less
-lib32-glibc
 libfido2
 libnotify
 libreoffice-fresh
