@@ -24,6 +24,7 @@ git
 gnome-disk-utility
 google-chrome
 htop
+hyprfm-git
 hyprland
 intel-ucode
 jetbrains-toolbox
@@ -37,7 +38,6 @@ linux
 linux-firmware
 man-db
 man-pages
-nautilus
 neovim
 networkmanager
 noctalia

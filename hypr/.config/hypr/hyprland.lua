@@ -23,7 +23,8 @@ hl.config({
             color = "rgba(000000ff)",
         },
         blur = {
-            size = 5,
+            size = 2,
+	    passes = 2
         },
     },
     dwindle    = { preserve_split = true },
@@ -79,7 +80,7 @@ end
 hl.bind(mainMod .. " + T",         hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + B",         hl.dsp.exec_cmd("google-chrome-stable"))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
-hl.bind(mainMod .. " + F",         hl.dsp.exec_cmd("nautilus"))
+hl.bind(mainMod .. " + F",         hl.dsp.exec_cmd("hyprfm"))
 hl.bind(mainMod .. " + backslash", toggle_floating)
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 hl.bind(mainMod .. " + V",         hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
@@ -152,10 +153,10 @@ hl.bind("ALT + Print",      hl.dsp.exec_cmd("noctalia msg screenshot-window"))
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" },                                   suppress_event = "maximize" })
 hl.window_rule({ name = "terminal-opacity",         match = { class = "kitty" },                                opacity = "0.8 override 0.7 override" })
 hl.window_rule({ name = "float-opacity",            match = { float = true },                                   opacity = "0.92 0.85" })
-hl.window_rule({ name = "opaque-apps",              match = { class = "google-chrome|org\\.gnome\\.Nautilus" }, opacity = "1.0 override 1.0 override" })
+hl.window_rule({ name = "opaque-apps",              match = { class = "google-chrome|hyprfm" }, opacity = "1.0 override 1.0 override" })
 hl.window_rule({ name = "modal-dialogs",            match = { modal = true },                                   float = true, center = true, min_size = { 400, 200 }, persistent_size = true })
 hl.window_rule({ name = "utility-apps",             match = { class = "blueman-manager|system-config-printer|signal" }, float = true, center = true, min_size = { 400, 200 }, persistent_size = true })
-hl.window_rule({ name = "nautilus",                 match = { class = "org\\.gnome\\.Nautilus" },               float = true, center = true, size = { 1000, 700 }, persistent_size = true })
+hl.window_rule({ name = "file-manager",             match = { class = "hyprfm" }, float = true, center = true, size = { 1080, 920 }, persistent_size = true })
 hl.window_rule({ name = "noctalia-settings",        match = { class = "dev\\.noctalia\\.Noctalia" },            float = true, size = { 1080, 920 } })
 
 hl.layer_rule({ name = "noctalia", match = { namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$" }, no_anim = true, ignore_alpha = 0.5, blur = true, blur_popups = true })
