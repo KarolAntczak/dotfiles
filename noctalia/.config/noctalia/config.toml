@@ -53,6 +53,7 @@ builtin = "Rosé Pine"
 
 [theme.templates]
 builtin_ids = ["gtk3", "gtk4", "hyprland"]
+community_ids = ["hyprfm"]
 
 [osd]
 position = "top_right"
