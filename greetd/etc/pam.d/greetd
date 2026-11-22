@@ -8,20 +8,40 @@
 # instantly; an empty submit (allow_empty_password in greeter.toml) or a wrong
 # password falls through to pam_fprintd. This ordering avoids the "place your
 # finger" stall that a fprintd-first stack imposes on password logins.
-# pam_fprintd is capped at one 15s attempt so a password typo is rejected
-# quickly instead of after the default 3x30s.
+# pam_fprintd is capped at one 8s attempt so a password typo is rejected
+# quickly instead of after the default 3x30s. After a typo you can also just
+# touch the sensor instead of waiting.
+#
+# Every failed attempt (wrong password + no finger, or a fingerprint timeout)
+# counts toward pam_faillock. deny=5 (default 3) is set on the faillock lines
+# below, so it applies to the greeter only; after 5 failures the account locks
+# for 10 min, and while locked the password is refused too.
+#
+# No `nullok` on pam_unix: the greeter accepts empty submits (for the
+# fingerprint fallback), so nullok would let a passwordless account in on Enter.
+#
+# pam_gnome_keyring unlocks the login keyring with the typed password. It sits
+# after the [success=N] jumps so their skip counts stay valid. On a fingerprint
+# login the authtok is empty; that only unlocks a keyring whose password is
+# empty (stored unencrypted on disk). A password-protected keyring stays locked
+# until first use and then prompts.
+#
+# pam_systemd is not listed here: system-local-login -> system-login already
+# runs it (as Arch's stock greetd file relies on).
 
 auth       required      pam_securetty.so
 auth       requisite     pam_nologin.so
-auth       required      pam_faillock.so             preauth
-auth       [success=2 default=ignore]  pam_unix.so   try_first_pass nullok
-auth       [success=1 default=ignore]  pam_fprintd.so   max-tries=1 timeout=15
-auth       [default=die] pam_faillock.so             authfail
+auth       required      pam_faillock.so             preauth  deny=5
+auth       [success=2 default=ignore]  pam_unix.so   try_first_pass
+auth       [success=1 default=ignore]  pam_fprintd.so   max-tries=1 timeout=8
+auth       [default=die] pam_faillock.so             authfail deny=5
 auth       optional      pam_permit.so
 auth       required      pam_env.so
-auth       required      pam_faillock.so             authsucc
+auth       required      pam_faillock.so             authsucc deny=5
+auth       optional      pam_gnome_keyring.so
 
 account    include       system-local-login
 password   include       system-local-login
+password   optional      pam_gnome_keyring.so
 session    include       system-local-login
-session    required      pam_systemd.so
+session    optional      pam_gnome_keyring.so        auto_start

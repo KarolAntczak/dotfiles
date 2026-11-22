@@ -18,7 +18,7 @@ size = 24
 # reader (see the pam_fprintd line in /etc/pam.d/greetd).
 allow_empty_password = true
 # Don't let the greetd watchdog abort the fingerprint scan (pam_fprintd waits
-# up to 15s - see /etc/pam.d/greetd). 0 disables the watchdog.
+# up to 8s - see /etc/pam.d/greetd). 0 disables the watchdog.
 request_timeout = 0
 
 # Output layout / scale is handled by the shell -> greeter sync.

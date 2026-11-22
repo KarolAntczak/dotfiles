@@ -58,9 +58,15 @@ sudo rm /usr/share/wayland-sessions/hyprland-uwsm.desktop
 → instant login; leave it empty and press Enter → fingerprint prompt. Requires an
 enrolled finger (`fprintd-enroll`) and `fprintd` installed. `allow_empty_password`
 / `request_timeout = 0` in `greeter.toml` make the empty submit and the scan wait
-work. A wrong (non-empty) password waits out the single 15s `pam_fprintd`
-attempt before it's rejected — that's the cost of not prompting for a finger up
-front.
+work. A wrong (non-empty) password waits out the single 8s `pam_fprintd`
+attempt before it's rejected (or touch the sensor instead) — that's the cost of
+not prompting for a finger up front.
+
+Every failed attempt, including a fingerprint timeout after an empty Enter,
+counts toward `pam_faillock`. `etc/pam.d/greetd` raises `deny` to 5 for the
+greeter only (other services keep the default 3; the failure tally is shared);
+after that the account is locked for 10 min (password included). Clear it early
+with `faillock --user <name> --reset` (as root).
 
 ## Clean login handoff (no terminal flash)
 
