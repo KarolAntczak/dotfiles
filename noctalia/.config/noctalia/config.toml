@@ -52,8 +52,15 @@ recursive = true
 builtin = "Rosé Pine"
 
 [theme.templates]
-builtin_ids = ["gtk3", "gtk4", "hyprland"]
+builtin_ids = ["gtk3", "gtk4", "hyprland", "kitty"]
 community_ids = ["hyprfm"]
+
+# Darker kitty background that follows the theme; rendered after the built-in
+# kitty template and included below it in kitty.conf.
+[theme.templates.user.kitty-dark]
+input_path = "~/.config/noctalia/templates/kitty-dark.conf"
+output_path = "~/.config/kitty/themes/noctalia-dark.conf"
+post_hook = "pkill -USR1 -x kitty || true"
 
 [osd]
 position = "top_right"
